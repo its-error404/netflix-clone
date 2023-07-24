@@ -7,7 +7,8 @@ const requests =
     Trending: `https://api.themoviedb.org/3/movie/popular?api_key=${key}&language=en-US&page=2`,
     NowPlaying: `https://api.themoviedb.org/3/movie/now_playing?api_key=${key}&language=en-US&page=1`,
     Upcoming: `https://api.themoviedb.org/3/movie/upcoming?api_key=${key}&language=en-US&page=1`,
-    TrendingTV: `https://api.themoviedb.org/3/trending/tv/day?api_key=${key}&language=en-US`
+    TrendingTV: `https://api.themoviedb.org/3/trending/tv/day?api_key=${key}&language=en-US`,
+    VideosofMovies: `https://api.themoviedb.org/3/movie/297762/videos?api_key=${key}&language=en-US`
 }
 
 export default requests
