@@ -1,59 +1,80 @@
-import { useEffect, useState } from 'react'
-import axios from 'axios'
-import styled from 'styled-components'
-import AllMovies from './AllMovies'
-import AllSeries from './AllSeries'
+import { useEffect, useState } from "react";
+import axios from "axios";
+import AllMovies from "./AllMovies";
+import AllSeries from "./AllSeries";
+import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
-const Row = ({ heading, fetchURL, fetchSeriesURL }) => {
-    
-    const [ Movies, SetMovies ] = useState([])
+const Row = ({ heading, fetchURL, fetchSeriesURL }) => 
+{
+  const [Movies, SetMovies] = useState([]);
+  const [Series, SetSeries] = useState([]);
 
-    useEffect(()=>
+  useEffect(() => {
+    axios.get(fetchURL).then((response) => {
+      SetMovies(response.data.results);
+    });
+  }, [fetchURL]);
+
+  useEffect(() => {
+    axios.get(fetchSeriesURL).then((response) => {
+      SetSeries(response.data.results);
+    });
+  }, [fetchSeriesURL]);
+
+    const SlideLeft = ()=>
     {
-        axios.get(fetchURL)
-        .then((response)=>
-        {
-            SetMovies(response.data.results)
-        })
-    },[fetchURL])
+        var MovieSlider = document.getElementById('MovieSlider')
+        var SeriesSlider= document.getElementById('SeriesSlider')
+        MovieSlider.scrollLeft = MovieSlider.scrollLeft - 500;
+        SeriesSlider.scrollLeft = SeriesSlider.scrollLeft + 500;
+    }
 
-    const [ Series, SetSeries ] = useState([])
-    
-    useEffect(()=>
+    const SlideRight = ()=>
     {
-        axios.get(fetchSeriesURL)
-        .then((response)=>
-        {
-            SetSeries(response.data.results)
-        })
-    },[fetchSeriesURL])
+        var MovieSlider = document.getElementById('MovieSlider')
+        var SeriesSlider= document.getElementById('SeriesSlider')
+        MovieSlider.scrollRight = MovieSlider.scrollLeft - 500;
+        SeriesSlider.scrollRight = SeriesSlider.scrollLeft + 500;
+    }
 
   return (
-    
-    <div>
-      <h1 className='p-4 ml-4 font-bold text-white font-Raleway md:text-xl'>{heading}</h1>
-      <div className='relative flex items-center'>
-        <Slider className='relative w-full h-full overflow-x-scroll whitespace-normal scroll-smooth scrollbar-hide'>
-            {
-                Movies.map((movie, movie_id) =>
-                (
-                   <AllMovies key={movie_id} movie={movie} />
-                ))
-            }
-        </Slider>
+    <div className="pt-5">
+      <h1 className="ml-8 font-bold text-white font-Raleway md:text-xl">{heading}</h1>
+      <div className="relative flex items-center group">
+        <MdChevronLeft
+          onClick={SlideLeft}
+          className="absolute hidden bg-white rounded-full opacity-0 cursor-pointer left-2 hover:opacity-100 group-hover:block"
+          size={20}
+        />
+        <div className="flex w-full overflow-x-scroll scrollbar-hide" id={'MovieSlider'}>
+          {Movies.map((movie, movie_id) => (
+            <AllMovies key={movie_id} movie={movie} />
+          ))}
+        </div>
+        <MdChevronRight
+          onClick={SlideRight}
+          className="absolute right-0 hidden m-3 bg-white rounded-full opacity-0 cursor-pointer hover:opacity-100 group-hover:block"
+          size={20}
+        />
+      </div>
 
-        <Slider className='relative w-full h-full overflow-x-scroll whitespace-normal scroll-smooth scrollbar-hide'>
-                {
-                    Series.map((serie, serie_id) =>
-                    (
-                        <AllSeries key={serie_id} serie={serie}/>
-                    ))
-                }
-        </Slider>
+      <div className="relative flex items-center overflow-x-hidden group">
+        <MdChevronLeft
+          className="absolute left-0 hidden bg-white rounded-full opacity-0 cursor-pointer group-hover:block hover:opacity-100"
+          size={20}
+        />
+        <div className="flex w-full overflow-x-scroll scrollbar-hide" id={'SeriesSlider'}>
+          {Series.map((serie, serie_id) => (
+            <AllSeries key={serie_id} serie={serie} />
+          ))}
+        </div>
+        <MdChevronRight
+          className="absolute right-0 hidden bg-white rounded-full opacity-0 cursor-pointer group-hover:block hover:opacity-100"
+          size={20}
+        />
       </div>
     </div>
-  )
-}
+  );
+};
 
-const Slider = styled.div``
-export default Row
+export default Row;

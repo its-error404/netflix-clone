@@ -19,6 +19,7 @@ const MainSection = () => {
       })
     },[])
     
+    console.log(Movies)
     //Random Series
 
     const [Series, SetSeries] = useState([])
@@ -62,6 +63,19 @@ const MainSection = () => {
       </div>
     </MovieDivision>
 
+    //Video Section
+
+    // <VideoDivision className="w-full text-white h-[550px]">
+    //   <div className="relative w-full h-full">
+    //     <div className="absolute w-full h-[550px] bg-gradient-to-r from-black"></div>
+    //     <video className="object-top w-full h-full">
+    //       <source src={`https://api.themoviedb.org/3/movie/${movie_id}/videos`}>
+          
+    //       </source>
+    //     </video>
+    //   </div>
+    // </VideoDivision>
+
     // <SeriesDivision className="w-full text-white h-[550px]">
     //   <div className="w-full h-full">
     //     <div className="absolute w-full h-[550px] bg-gradient-to-r from-black"> </div>
@@ -82,10 +96,13 @@ const MainSection = () => {
     //       </div>
     //   </div>
     // </SeriesDivision>
+
+    
   )
 }
 
 const MovieDivision = styled.div``
 const SeriesDivision = styled.div``
+const VideoDivision = styled.div``
 
 export default MainSection

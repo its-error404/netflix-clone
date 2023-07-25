@@ -6,8 +6,8 @@ const AllMovies = ({ movie }) => {
     const [Like, SetLike] = useState(false)
     
   return (
-    <div>
-      <div className="ml-4 w-[180px] p-4 sm:w-[200px] md:w-[300px] inline-block cursor-pointer relative">
+    <div className='inline-flex w-full h-full'>
+      <div className="ml-7 w-[180px] p-4 sm:w-[200px] md:w-[300px] inline-block cursor-pointer relative">
         <img
           src={`https://image.tmdb.org/t/p/w500/${movie?.backdrop_path}`}
           alt={movie?.title}
